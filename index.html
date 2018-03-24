@@ -14,7 +14,7 @@
 </head>
 <body>
     
-  <script>
+    <script>
   var GoogleAuth;
   var SCOPE = 'https://www.googleapis.com/auth/drive.metadata.readonly';
   function handleClientLoad() {
@@ -44,16 +44,6 @@
 
       // Handle initial sign-in state. (Determine if user is already signed in.)
       var user = GoogleAuth.currentUser.get();
-      var userProf = user.getBasicProfile();
-      var userEmail = userProf.getEmail();
-      var userImage = userProf.getImageUrl();
-      var userId = userProf.getId();
-      var userName = userProf.getName();
-      console.log(userImage);
-      console.log(userEmail);
-      console.log(userId);
-      console.log(userName);
-  
       setSigninStatus();
 
       // Call handleAuthClick function when user clicks on
@@ -114,7 +104,6 @@
         onload="this.onload=function(){};handleClientLoad()" 
         onreadystatechange="if (this.readyState === 'complete') this.onload()">
 </script>
-
 
 
 
