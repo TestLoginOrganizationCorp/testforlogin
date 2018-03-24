@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <!-- <link rel="stylesheet" href="assets/css/styles.css"> -->
+    <title>Document</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <meta name="google-signin-client_id" content="124313717233-07rr4ogob6emhbpfl4jqu6u1u6mobbu2.apps.googleusercontent.com">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    
+    <script>
+        var GoogleAuth;
+        var SCOPE = 'https://www.googleapis.com/auth/drive.metadata.readonly';
+        function handleClientLoad() {
+          // Load the API's client and auth2 modules.
+          // Call the initClient function after the modules load.
+          gapi.load('client:auth2', initClient);
+        }
+      
+        function initClient() {
+          // Retrieve the discovery document for version 3 of Google Drive API.
+          // In practice, your app can retrieve one or more discovery documents.
+          var discoveryUrl = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
+      
+          // Initialize the gapi.client object, which app uses to make API requests.
+          // Get API key and client ID from API Console.
+          // 'scope' field specifies space-delimited list of access scopes.
+          gapi.client.init({
+              'apiKey': 'AIzaSyBG8dPTg52rH0rTtwIR6a-Bl1DWiELwY1M',
+              'discoveryDocs': [discoveryUrl],
+              'clientId': '124313717233-07rr4ogob6emhbpfl4jqu6u1u6mobbu2.apps.googleusercontent.com',
+              'scope': SCOPE
+          }).then(function () {
+            GoogleAuth = gapi.auth2.getAuthInstance();
+      
+            // Listen for sign-in state changes.
+            GoogleAuth.isSignedIn.listen(updateSigninStatus);
+      
+            // Handle initial sign-in state. (Determine if user is already signed in.)
+            var user = GoogleAuth.currentUser.get();
+            var profile = user.getBasicProfile();
+            //var userID = profile.getId();
+            var userName= profile.getName();
+            //var userImage = profile.getImageUrl();
+            var userImageObject = $("<img>").attr("src", profile.getImageUrl());
+            var userEmail = profile.getEmail();
+            
+           
+
+            $(".userImageObjectDiv").prepend(userImageObject)
+            $(".userEmailDiv").html(userEmail)
+
+
+
+
+
+
+
+            console.log(userID); // Do not send to your backend! Use an ID token instead.
+            console.log(userName);
+            console.log(userImage);
+            console.log(userEmail); // This is null if the 'email' scope is not present.
+
+            setSigninStatus();
+      
+            // Call handleAuthClick function when user clicks on
+            //      "Sign In/Authorize" button.
+            $('#sign-in-or-out-button').click(function() {
+              handleAuthClick();
+            }); 
+            $('#revoke-access-button').click(function() {
+              revokeAccess();
+            }); 
+          });
+        }
+      
+        function handleAuthClick() {
+          if (GoogleAuth.isSignedIn.get()) {
+            // User is authorized and has clicked 'Sign out' button.
+            GoogleAuth.signOut();
+          } else {
+            // User is not signed in. Start Google auth flow.
+            GoogleAuth.signIn();
+          }
+        }
+      
+        function revokeAccess() {
+          GoogleAuth.disconnect();
+        }
+      
+        function setSigninStatus(isSignedIn) {
+          var user = GoogleAuth.currentUser.get();
+          var isAuthorized = user.hasGrantedScopes(SCOPE);
+          if (isAuthorized) {
+            $('#sign-in-or-out-button').html('Sign out');
+            $('#revoke-access-button').css('display', 'inline-block');
+            $('#auth-status').html('You are currently signed in and have granted ' +
+                'access to this app.');
+          } else {
+            $('#sign-in-or-out-button').html('Sign In/Authorize');
+            $('#revoke-access-button').css('display', 'none');
+            $('#auth-status').html('You have not authorized this app or you are ' +
+                'signed out.');
+          }
+        }
+      
+        function updateSigninStatus(isSignedIn) {
+          setSigninStatus();
+        }
+      </script>
+      
+      <button id="sign-in-or-out-button"
+              style="margin-left: 25px">Sign In/Authorize</button>
+      <button id="revoke-access-button"
+              style="display: none; margin-left: 25px">Revoke access</button>
+      
+      <div id="auth-status" style="display: inline; padding-left: 25px"></div><hr>
+      <script async defer src="https://apis.google.com/js/api.js" 
+              onload="this.onload=function(){};handleClientLoad()" 
+              onreadystatechange="if (this.readyState === 'complete') this.onload()">
+      </script>
+
+
+
+
+
+
+</body>
+</html>
