@@ -45,16 +45,16 @@
             // Handle initial sign-in state. (Determine if user is already signed in.)
             var user = GoogleAuth.currentUser.get();
             var profile = user.getBasicProfile();
-            //var userID = profile.getId();
+            var userID = profile.getId();
             var userName= profile.getName();
-            //var userImage = profile.getImageUrl();
-            var userImageObject = $("<img>").attr("src", profile.getImageUrl());
+            var userImage = profile.getImageUrl();
+            //var userImageObject = $("<img>").attr("src", profile.getImageUrl());
             var userEmail = profile.getEmail();
             
            
 
-            $(".userImageObjectDiv").prepend(userImageObject)
-            $(".userEmailDiv").html(userEmail)
+           // $(".userImageObjectDiv").prepend(userImageObject)
+            //$(".userEmailDiv").html(userEmail)
 
 
 
