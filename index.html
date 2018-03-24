@@ -16,21 +16,18 @@
     
   <script>
   var GoogleAuth;
-  var userEmail = "";
-  var userImage = "";
-  var userId = "";
-  var userName = "";
-  var userImageObject = "";
   var SCOPE = 'https://www.googleapis.com/auth/drive.metadata.readonly';
   function handleClientLoad() {
     // Load the API's client and auth2 modules.
     // Call the initClient function after the modules load.
     gapi.load('client:auth2', initClient);
   }
+
   function initClient() {
     // Retrieve the discovery document for version 3 of Google Drive API.
     // In practice, your app can retrieve one or more discovery documents.
     var discoveryUrl = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
+
     // Initialize the gapi.client object, which app uses to make API requests.
     // Get API key and client ID from API Console.
     // 'scope' field specifies space-delimited list of access scopes.
@@ -41,23 +38,24 @@
         'scope': SCOPE
     }).then(function () {
       GoogleAuth = gapi.auth2.getAuthInstance();
+
       // Listen for sign-in state changes.
       GoogleAuth.isSignedIn.listen(updateSigninStatus);
+
       // Handle initial sign-in state. (Determine if user is already signed in.)
       var user = GoogleAuth.currentUser.get();
       var userProf = user.getBasicProfile();
-       userEmail = userProf.getEmail();
-       userImage = userProf.getImageUrl();
-       userId = userProf.getId();
-       userName = userProf.getName();
-       userImageObject = $("<img>").attr("src", userImage)
-       $(".image-area").prepend(userImageObject)
+      var userEmail = userProf.getEmail();
+      var userImage = userProf.getImageUrl();
+      var userId = userProf.getId();
+      var userName = userProf.getName();
       console.log(userImage);
       console.log(userEmail);
       console.log(userId);
       console.log(userName);
   
       setSigninStatus();
+
       // Call handleAuthClick function when user clicks on
       //      "Sign In/Authorize" button.
       $('#sign-in-or-out-button').click(function() {
@@ -68,6 +66,7 @@
       }); 
     });
   }
+
   function handleAuthClick() {
     if (GoogleAuth.isSignedIn.get()) {
       // User is authorized and has clicked 'Sign out' button.
@@ -77,9 +76,11 @@
       GoogleAuth.signIn();
     }
   }
+
   function revokeAccess() {
     GoogleAuth.disconnect();
   }
+
   function setSigninStatus(isSignedIn) {
     var user = GoogleAuth.currentUser.get();
     var isAuthorized = user.hasGrantedScopes(SCOPE);
@@ -95,11 +96,11 @@
           'signed out.');
     }
   }
+
   function updateSigninStatus(isSignedIn) {
     setSigninStatus();
   }
 </script>
-<div class="image-area"></div>
 
 <button id="sign-in-or-out-button"
         style="margin-left: 25px">Sign In/Authorize</button>
