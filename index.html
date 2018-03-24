@@ -43,13 +43,12 @@
             GoogleAuth.isSignedIn.listen(updateSigninStatus);
       
             // Handle initial sign-in state. (Determine if user is already signed in.)
-            var profile = auth2.currentUser.get().getBasicProfile();
-            //var user = GoogleAuth.currentUser.get();
-            //var profile = user.getBasicProfile();
+            var user = GoogleAuth.currentUser.get();
+            var profile = user.getBasicProfile();
             var userID = profile.getId();
             var userName= profile.getName();
             var userImage = profile.getImageUrl();
-            //var userImageObject = $("<img>").attr("src", profile.getImageUrl());
+            var userImageObject = $("<img>").attr("src", profile.getImageUrl());
             var userEmail = profile.getEmail();
             
            
