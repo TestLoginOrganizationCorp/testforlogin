@@ -20,6 +20,7 @@
   var userImage = "";
   var userId = "";
   var userName = "";
+  var userImageObject = "";
   var SCOPE = 'https://www.googleapis.com/auth/drive.metadata.readonly';
   function handleClientLoad() {
     // Load the API's client and auth2 modules.
@@ -53,10 +54,15 @@
        userImage = userProf.getImageUrl();
        userId = userProf.getId();
        userName = userProf.getName();
+       userImageObject = $("<img>").attr("src", userImage)
+       $(".image-area").prepend(userImageObjectp)
       console.log(userImage);
       console.log(userEmail);
       console.log(userId);
       console.log(userName);
+
+
+
   
       setSigninStatus();
 
@@ -105,6 +111,7 @@
     setSigninStatus();
   }
 </script>
+<div class="image-area"></div>
 
 <button id="sign-in-or-out-button"
         style="margin-left: 25px">Sign In/Authorize</button>
