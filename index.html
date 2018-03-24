@@ -46,7 +46,13 @@
       var user = GoogleAuth.currentUser.get();
       var userProf = user.getBasicProfile();
       var userEmail = userProf.getEmail();
+      var userImage = userProf.getImageUrl();
+      var userId = userProf.getId();
+      var userName = userProf.getName();
+      console.log(userImage);
       console.log(userEmail);
+      console.log(userId);
+      console.log(UserName);
   
       setSigninStatus();
 
