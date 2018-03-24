@@ -16,6 +16,10 @@
     
   <script>
   var GoogleAuth;
+  var userEmail = "";
+  var userImage = "";
+  var userId = "";
+  var userName = "";
   var SCOPE = 'https://www.googleapis.com/auth/drive.metadata.readonly';
   function handleClientLoad() {
     // Load the API's client and auth2 modules.
@@ -45,10 +49,10 @@
       // Handle initial sign-in state. (Determine if user is already signed in.)
       var user = GoogleAuth.currentUser.get();
       var userProf = user.getBasicProfile();
-      var userEmail = userProf.getEmail();
-      var userImage = userProf.getImageUrl();
-      var userId = userProf.getId();
-      var userName = userProf.getName();
+       userEmail = userProf.getEmail();
+       userImage = userProf.getImageUrl();
+       userId = userProf.getId();
+       userName = userProf.getName();
       console.log(userImage);
       console.log(userEmail);
       console.log(userId);
