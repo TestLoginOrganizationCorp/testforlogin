@@ -103,7 +103,7 @@
        userName = userProf.getName();
        userImageObject = $("<img>").attr("src", userImage);
        $('.image-area').css('display', 'block');
-       $(".image-area").prepend(userImageObject);
+       $(".image-area").html(userImageObject);
       console.log(userImage);
       console.log(userEmail);
       console.log(userId);
