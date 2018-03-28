@@ -75,6 +75,7 @@
   function handleAuthClick() {
     if (GoogleAuth.isSignedIn.get()) {
       // User is authorized and has clicked 'Sign out' button.
+      $('.image-area').css('display', 'none');
       GoogleAuth.signOut();
     } else {
       // User is not signed in. Start Google auth flow.
@@ -117,7 +118,6 @@
     } else {
       $('#sign-in-or-out-button').html('Sign In/Authorize');
       $('#revoke-access-button').css('display', 'none');
-      $('.image-area').css('display', 'none');
       $('#auth-status').html('You have not authorized this app or you are ' +
           'signed out.');
     }
