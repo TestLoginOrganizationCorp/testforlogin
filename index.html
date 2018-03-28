@@ -50,6 +50,7 @@
       // Handle initial sign-in state. (Determine if user is already signed in.)
       var user = GoogleAuth.currentUser.get();
       setSigninStatus();
+      var userProf = GoogleAuth.currentUser.getBasicProfile();
       // var userProf = user.getBasicProfile();
       //  userEmail = userProf.getEmail();
       //  userImage = userProf.getImageUrl();
