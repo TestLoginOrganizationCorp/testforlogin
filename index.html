@@ -51,10 +51,10 @@
       var user = GoogleAuth.currentUser.get();
       setSigninStatus();
       var userProf = user.getBasicProfile();
-       userEmail = userProf.getEmail();
-       userImage = userProf.getImageUrl();
-       userId = userProf.getId();
-       userName = userProf.getName();
+       userEmail = user.getEmail();
+       userImage = user.getImageUrl();
+       userId = user.getId();
+       userName = user.getName();
        userImageObject = $("<img>").attr("src", userImage);
        $(".image-area").prepend(userImageObject);
       console.log(userImage);
