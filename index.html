@@ -76,6 +76,8 @@
     if (GoogleAuth.isSignedIn.get()) {
       // User is authorized and has clicked 'Sign out' button.
       $('.image-area').css('display', 'none');
+      $('.user-name').css('display', 'none');
+       $('.user-email').css('display', 'none');
       GoogleAuth.signOut();
     } else {
       // User is not signed in. Start Google auth flow.
@@ -95,7 +97,7 @@
 
 
 
-
+//Gets user info and stores in vars, also adds the user profile image
       var userProf = user.getBasicProfile();
        userEmail = userProf.getEmail();
        userImage = userProf.getImageUrl();
@@ -103,6 +105,10 @@
        userName = userProf.getName();
        userImageObject = $("<img>").attr("src", userImage);
        $('.image-area').css('display', 'block');
+       $('.user-name').css('display', 'block');
+       $('.user-email').css('display', 'block');
+       $(".user-name").html(userId);
+       $(".user-email").html(userEmail);
        $(".image-area").html(userImageObject);
       console.log(userImage);
       console.log(userEmail);
@@ -130,6 +136,8 @@
 </script>
 
 <div class="image-area"></div>
+<div class="user-name"></div>
+<div class="user-email"></div>
 
 <button id="sign-in-or-out-button"
         style="margin-left: 25px">Sign In/Authorize</button>
